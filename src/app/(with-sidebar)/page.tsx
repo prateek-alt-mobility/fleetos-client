@@ -1,33 +1,13 @@
 'use client';
-import { useFetchUserPermissionsQuery } from '@/store/api/v1/modules/auth.api';
+import { useCheckLoginQuery, useFetchUserPermissionsQuery } from '@/store/api/v1/modules/auth.api';
 import Image from 'next/image';
-import { useEffect } from 'react';
 
 const Home = () => {
-  const { data, isLoading, error } = useFetchUserPermissionsQuery({});
-  useEffect(() => {
-    // fetch('https://fleetos-dev-api.alt-mobility.com/v1/rolePerms.getUserPerms?input=%7B%7D', {
-    //   headers: {
-    //     accept: '*/*',
-    //     'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
-    //     authorization:
-    //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInNlc3Npb25JZCI6IjgzOWNhZGUyLTIwZWQtNGY2Zi1iYmRlLWM3NDk4YzA5M2MxM3N1cGVyYWRtaW5AYWx0LW1vYmlsaXR5LmNvbSIsInBob25lTm8iOiJmODA3MDljOTY2NWMyMWUzOTZiZmVlMTQwMDhmN2UyMCIsImVtYWlsIjoic3VwZXJhZG1pbkBhbHQtbW9iaWxpdHkuY29tIiwiYWNjZXNzVHlwZSI6MSwiaWF0IjoxNzQ4MDA4NjYxLCJleHAiOjE3NDg2MTM0NjF9.gVcHFq-JF-x15GITv92RKJwokxmvAH3rOjTyx-028Vo',
-    //     'content-type': 'application/json',
-    //     'sec-ch-ua': '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
-    //     'sec-ch-ua-mobile': '?0',
-    //     'sec-ch-ua-platform': '"macOS"',
-    //     'sec-fetch-dest': 'empty',
-    //     'sec-fetch-mode': 'cors',
-    //     'sec-fetch-site': 'same-site',
-    //   },
-    //   referrer: 'https://fleetos-dev-ui.alt-mobility.com/',
-    //   referrerPolicy: 'strict-origin-when-cross-origin',
-    //   body: null,
-    //   method: 'GET',
-    //   mode: 'cors',
-    //   credentials: 'include',
-    // });
-  }, []);
+  const { data: userLoginData } = useCheckLoginQuery();
+  const { data: userPermissionsData } = useFetchUserPermissionsQuery();
+  console.log(userLoginData);
+  console.log(userPermissionsData);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">

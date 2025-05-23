@@ -1,6 +1,6 @@
 export const getCookie = (cookieName: string) => {
   if (typeof window !== 'undefined') {
-    let cookies = document.cookie.split(';');
+    const cookies = document.cookie.split(';');
     // Loop through the cookies to find the one with the specified name
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim(); // Trim any leading/trailing spaces

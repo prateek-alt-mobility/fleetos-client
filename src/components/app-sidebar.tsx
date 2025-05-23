@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import {
+  Home,
+  Car,
   AudioWaveform,
   BookOpen,
   Bot,
@@ -53,87 +55,38 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
+      title: 'Home',
+      url: '',
+      icon: Home,
       isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
     },
     {
-      title: 'Models',
-      url: '#',
+      title: 'Fleet Partners',
+      url: '/fleet',
       icon: Bot,
       items: [
         {
-          title: 'Genesis',
-          url: '#',
+          title: 'Customers',
+          url: '/fleet/customers',
         },
         {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
+          title: 'Fleet Requests',
+          url: '/fleet/fleet-requests',
         },
       ],
     },
     {
-      title: 'Documentation',
+      title: 'Fleet',
       url: '#',
-      icon: BookOpen,
+      icon: Car,
       items: [
         {
-          title: 'Introduction',
-          url: '#',
+          title: 'Map',
+          url: '/fleet/map',
         },
         {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
+          title: 'Vehicles',
+          url: '/fleet/vehicles',
         },
       ],
     },
@@ -166,7 +119,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
