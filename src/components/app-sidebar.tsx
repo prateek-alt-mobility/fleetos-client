@@ -5,12 +5,20 @@ import {
   Home,
   Car,
   AudioWaveform,
-  Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
+  ChartBar,
+  Wrench,
+  FileText,
+  ListChecks,
+  IndianRupee,
+  Database,
+  Warehouse,
+  Handshake,
+  ReceiptText,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
@@ -61,7 +69,7 @@ const data = {
     {
       title: 'Fleet Partners',
       url: '/fleet-partners',
-      icon: Bot,
+      icon: Handshake,
       items: [
         {
           title: 'Customers',
@@ -87,6 +95,92 @@ const data = {
           url: '/fleet/vehicles',
         },
       ],
+    },
+    {
+      title: 'Asset Analytics',
+      url: '/asset-analytics',
+      icon: ChartBar,
+    },
+    {
+      title: 'Service',
+      url: '/service',
+      icon: Wrench,
+      items: [
+        {
+          title: 'Service Due',
+          url: '/service/service-due',
+        },
+        {
+          title: 'Service Logs',
+          url: '/service/service-logs',
+        },
+      ],
+    },
+    {
+      title: 'Reports',
+      url: '/reports',
+      icon: FileText,
+      items: [
+        {
+          title: 'Extra Usage',
+          url: '/reports/extra-usage',
+        },
+        {
+          title: 'Challan Report',
+          url: '/reports/challan-report',
+        },
+        {
+          title: 'Usage Report',
+          url: '/reports/usage-report',
+        },
+      ],
+    },
+    {
+      title: 'Delivery Challan',
+      url: '/delivery-challan',
+      icon: ReceiptText,
+      items: [
+        {
+          title: 'IoT Connectivity',
+          url: '/delivery-challan/iot-connectivity',
+        },
+        {
+          title: 'Mock Vehicle Connectivity',
+          url: '/delivery-challan/mock-vehicle-connectivity',
+        },
+        {
+          title: 'Vehicle Connectivity',
+          url: '/delivery-challan/vehicle-connectivity',
+        },
+        {
+          title: 'Vehicle Stock',
+          url: '/delivery-challan/vehicle-stock',
+        },
+        {
+          title: 'RRRR',
+          url: '/delivery-challan/rrrr',
+        },
+      ],
+    },
+    {
+      title: 'Audit',
+      url: '/audit',
+      icon: ListChecks,
+    },
+    {
+      title: 'Expenses',
+      url: '/expenses',
+      icon: IndianRupee,
+    },
+    {
+      title: 'Hubs',
+      url: '/hubs',
+      icon: Warehouse,
+    },
+    {
+      title: 'Big Query Import',
+      url: '/big-query-import',
+      icon: Database,
     },
   ],
   projects: [
@@ -118,7 +212,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {state === 'collapsed' ? (
           <Image src="/mini-logo.svg" alt="mini logo" width={36} height={36} />
         ) : (
-          <Image src="/logo.svg" alt="logo" width={168} height={36} />
+          <div className="pl-3">
+            <Image src="/logo.svg" alt="logo" width={120} height={36} />
+          </div>
         )}
       </SidebarHeader>
       <SidebarContent>

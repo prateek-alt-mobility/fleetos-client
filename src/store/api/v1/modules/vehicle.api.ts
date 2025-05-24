@@ -2,6 +2,7 @@ import { v1Api } from '..';
 
 enum VEHICLE_API_ENDPOINTS {
   FETCH_ALL_VEHICLES = '/vehicle.GetVehicleInventory',
+  FETCH_ALL_MAP_VEHICLES = '/vehicle.GetVehicleInventoryList',
 }
 
 interface VehicleModelDetails {
@@ -71,10 +72,59 @@ type FetchAllVehiclesResponse = {
 };
 
 export interface FetchAllVehiclesPayload {
-  limit: number;
-  page_no: number;
-  sortField: string;
-  order: 'asc' | 'desc';
+  limit?: number;
+  page_no?: number;
+  sortField?: string;
+  order?: 'asc' | 'desc';
+  vehicle_category?: string;
+  vehicle_status?: string;
+  vehicle_condition?: string;
+  iotConnected?: boolean;
+}
+
+interface MapVehicleModelDetails {
+  model_name: string;
+  vehicle_category: string;
+}
+
+interface MapCustomerDetails {
+  org_name: string;
+}
+
+interface MapCalculatedDashboard {
+  vehicleCondition: string;
+  batteryPercentage: number;
+  imei: string;
+  latitude: number;
+  longitude: number;
+}
+
+interface MapFleetRequestDetails {
+  fleet_req_Id: number;
+  tranche: string;
+  fleetRequestsLenderConvenants: {
+    lender_name: string;
+    lessor_name: string;
+  } | null;
+}
+
+interface MapVehicle {
+  reg_no: string | null;
+  vehicle_id: string;
+  battery_serial_no_1: string | null;
+  asset_type: string;
+  customerDetails: MapCustomerDetails | null;
+  vehicleModelDetails: MapVehicleModelDetails;
+  calculatedDashboard: MapCalculatedDashboard;
+  fleetRequestDetails: MapFleetRequestDetails | null;
+}
+
+interface FetchAllMapVehiclesResponse {
+  result: {
+    data: {
+      data: MapVehicle[];
+    };
+  };
 }
 
 export const vehicleApi = v1Api.injectEndpoints({
@@ -85,7 +135,13 @@ export const vehicleApi = v1Api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    fetchAllMapVehicles: builder.query<FetchAllMapVehiclesResponse, FetchAllVehiclesPayload>({
+      query: payload => ({
+        url: VEHICLE_API_ENDPOINTS.FETCH_ALL_MAP_VEHICLES + `?input=${JSON.stringify(payload)}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useFetchAllVehiclesQuery } = vehicleApi;
+export const { useFetchAllVehiclesQuery, useFetchAllMapVehiclesQuery } = vehicleApi;

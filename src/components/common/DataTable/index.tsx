@@ -52,18 +52,22 @@ export function DataTable<TData, TValue>({
   const selectionColumn: ColumnDef<TData, TValue> = {
     id: 'select',
     header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value: boolean) => table.toggleAllPageRowsSelected(value)}
-        aria-label="Select all"
-      />
+      <div className="pr-1">
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value: boolean) => table.toggleAllPageRowsSelected(value)}
+          aria-label="Select all"
+        />
+      </div>
     ),
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value: boolean) => row.toggleSelected(value)}
-        aria-label="Select row"
-      />
+      <div>
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value: boolean) => row.toggleSelected(value)}
+          aria-label="Select row"
+        />
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -104,53 +108,54 @@ export function DataTable<TData, TValue>({
   }, [rowSelection, onRowSelectionChange, table, enableRowSelection]);
 
   return (
-    <div className="rounded-md border">
-      <Table wrapperClassName="h-[calc(100vh-23rem)]">
-        <TableHeader className="sticky top-0 bg-white">
-          {table.getHeaderGroups().map(headerGroup => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
-                return (
-                  <TableHead key={header.id} className="first:rounded-tl-md last:rounded-tr-md">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map(row => (
-              <TableRow
-                key={row.id}
-                className="h-12"
-                data-state={enableRowSelection && row.getIsSelected() && 'selected'}
-              >
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+    <div className="">
+      <div className="rounded-t-md border overflow-x-auto">
+        <Table wrapperClassName="h-[calc(100vh-23rem)] min-h-auto min-w-max z-10">
+          <TableHeader className="sticky top-0 bg-white">
+            {table.getHeaderGroups().map(headerGroup => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  return (
+                    <TableHead key={header.id} className="first:rounded-tl-md last:rounded-tr-md">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
+                  );
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={enableRowSelection ? columns.length + 1 : columns.length}
-                className="h-24 text-center"
-              >
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map(row => (
+                <TableRow
+                  key={row.id}
+                  className="h-12"
+                  data-state={enableRowSelection && row.getIsSelected() && 'selected'}
+                >
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={enableRowSelection ? columns.length + 1 : columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
       {pagination && (
-        <div className="p-4 border-t">
+        <div className="p-4 border border-t-0 rounded-b-md">
           <DataTablePagination
             table={table}
             pageNo={pageNo}
