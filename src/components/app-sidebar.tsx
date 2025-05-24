@@ -5,19 +5,16 @@ import {
   Home,
   Car,
   AudioWaveform,
-  BookOpen,
   Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
-import { NavProjects } from '@/components/nav-projects';
+// import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
 // import { TeamSwitcher } from '@/components/team-switcher';
 import {
@@ -56,22 +53,22 @@ const data = {
   navMain: [
     {
       title: 'Home',
-      url: '',
+      url: '/',
       icon: Home,
       isActive: true,
     },
     {
       title: 'Fleet Partners',
-      url: '/fleet',
+      url: '/fleet-partners',
       icon: Bot,
       items: [
         {
           title: 'Customers',
-          url: '/fleet/customers',
+          url: '/fleet-partners/customers',
         },
         {
           title: 'Fleet Requests',
-          url: '/fleet/fleet-requests',
+          url: '/fleet-partners/fleet-requests',
         },
       ],
     },
