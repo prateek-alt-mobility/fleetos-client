@@ -23,6 +23,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import Image from 'next/image';
 
@@ -108,11 +109,17 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { state } = useSidebar();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
-        <Image src="/logo.svg" alt="logo" width={168} height={36} />
+        {state === 'collapsed' ? (
+          <Image src="/mini-logo.svg" alt="mini logo" width={36} height={36} />
+        ) : (
+          <Image src="/logo.svg" alt="logo" width={168} height={36} />
+        )}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
