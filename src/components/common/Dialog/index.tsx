@@ -34,7 +34,7 @@ export const Dialog: React.FC<DialogProps> = ({
   footer,
   className,
   contentClassName,
-  showCloseButton = true,
+  // showCloseButton = true,
 }) => {
   return (
     <DialogPrimitive open={open} onOpenChange={onOpenChange}>

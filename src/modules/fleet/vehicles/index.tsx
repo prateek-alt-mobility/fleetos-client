@@ -28,7 +28,7 @@ const Vehicles = () => {
     model: '',
     year: '',
   });
-  const [selectedVehicles, setSelectedVehicles] = useState<Vehicle[]>([]);
+  const [_selectedVehicles, setSelectedVehicles] = useState<Vehicle[]>([]);
 
   const { data, isLoading, error } = useFetchAllVehiclesQuery({
     limit: pageSize,
