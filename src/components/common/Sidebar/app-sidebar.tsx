@@ -21,9 +21,9 @@ import {
   ReceiptText,
 } from 'lucide-react';
 
-import { NavMain } from '@/components/nav-main';
+import { NavMain } from '@/components/common/Sidebar/nav-main';
 // import { NavProjects } from '@/components/nav-projects';
-import { NavUser } from '@/components/nav-user';
+import { NavUser } from '@/components/common/Sidebar/nav-user';
 // import { TeamSwitcher } from '@/components/team-switcher';
 import {
   Sidebar,
@@ -222,7 +222,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser tempUser={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

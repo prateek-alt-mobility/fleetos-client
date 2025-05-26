@@ -7,6 +7,7 @@ import { store } from '@/store';
 import { Toaster } from '@/components/ui/toaster';
 import { useRouter } from 'next/navigation';
 import { useLayoutEffect } from 'react';
+import RouteTransition from '@/components/RouteTransition';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,11 +37,14 @@ const RootLayout = ({
         router.push('/login');
       }
     }
-  }, []);
+  }, [router]);
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          <RouteTransition>{children}</RouteTransition>
+        </Provider>
         <Toaster />
       </body>
     </html>
