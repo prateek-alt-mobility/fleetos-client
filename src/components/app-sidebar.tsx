@@ -40,7 +40,7 @@ const data = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    avatar: '/mini-logo.svg',
   },
   teams: [
     {
@@ -210,10 +210,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
         {state === 'collapsed' ? (
-          <Image src="/mini-logo.svg" alt="mini logo" width={36} height={36} />
+          <Image src="/mini-logo.svg" alt="mini logo" width={36} height={36} priority />
         ) : (
           <div className="pl-3">
-            <Image src="/logo.svg" alt="logo" width={120} height={36} />
+            <Image src="/logo.svg" alt="logo" width={120} height={36} priority />
           </div>
         )}
       </SidebarHeader>

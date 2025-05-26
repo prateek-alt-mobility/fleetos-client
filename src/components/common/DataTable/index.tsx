@@ -52,7 +52,7 @@ export function DataTable<TData, TValue>({
   const selectionColumn: ColumnDef<TData, TValue> = {
     id: 'select',
     header: ({ table }) => (
-      <div className="pr-1">
+      <div className="pr-1 flex items-center justify-center">
         <Checkbox
           checked={table.getIsAllPageRowsSelected()}
           onCheckedChange={(value: boolean) => table.toggleAllPageRowsSelected(value)}
@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
       </div>
     ),
     cell: ({ row }) => (
-      <div>
+      <div className="flex items-center justify-center">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value: boolean) => row.toggleSelected(value)}
@@ -111,7 +111,7 @@ export function DataTable<TData, TValue>({
     <div className="">
       <div className="rounded-t-md border overflow-x-auto">
         <Table wrapperClassName="h-[calc(100vh-23rem)] min-h-auto min-w-max z-10">
-          <TableHeader className="sticky top-0 bg-white">
+          <TableHeader className="sticky top-0 bg-muted">
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {

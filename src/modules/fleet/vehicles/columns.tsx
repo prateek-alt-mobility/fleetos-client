@@ -1,19 +1,22 @@
 import { Vehicle } from '@/store/api/v1/modules/vehicle.api';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 
 const columns: ColumnDef<Vehicle>[] = [
   {
     header: 'Reg. No.',
-    accessorKey: 'reg_no',
+    cell: ({ row }) => {
+      const { original: data } = row;
+      return <Link href={`/fleet/vehicles/${data?.vehicle_id}`}>{data?.reg_no ?? '--'}</Link>;
+    },
   },
   {
     header: 'Vehicle ID',
-    accessorKey: 'vehicle_id',
+    accessorFn: row => row?.vehicle_id ?? '--',
   },
   {
     header: 'Make & Model',
-
     cell: ({ row }) => {
       const { original: data } = row;
       const make = data?.vehicleModelDetails?.manufacturer_name || null;
@@ -23,19 +26,18 @@ const columns: ColumnDef<Vehicle>[] = [
   },
   {
     header: 'Vehicle Category',
-    accessorKey: 'vehicleModelDetails.vehicle_category',
+    accessorFn: row => row?.vehicleModelDetails?.vehicle_category ?? '--',
   },
   {
     header: 'Location',
-    accessorKey: 'city',
+    accessorFn: row => row?.city ?? '--',
   },
   {
     header: 'Vehicle Status',
-    accessorKey: 'calculatedDashboard.vehicleCondition',
+    accessorFn: row => row?.calculatedDashboard?.vehicleCondition ?? '--',
   },
   {
     header: 'Last Seen',
-    accessorKey: 'calculatedDashboard.lastSeenAt',
 
     cell: ({ row }) => {
       const { original: data } = row;
@@ -45,42 +47,40 @@ const columns: ColumnDef<Vehicle>[] = [
   },
   {
     header: 'SoC',
-    accessorKey: 'calculatedDashboard.batteryPercentage',
 
     cell: ({ row }) => {
       const { original: data } = row;
       const battery = data?.calculatedDashboard?.batteryPercentage || null;
-
       return battery ? `${battery}%` : 'N/A';
     },
   },
   {
     header: 'Daily Distance Travelled',
-    accessorKey: 'calculatedDashboard.distanceTravelledToday',
+    accessorFn: row => row?.calculatedDashboard?.distanceTravelledToday ?? '--',
   },
   {
     header: 'Inventory Status',
-    accessorKey: 'status',
+    accessorFn: row => row?.status ?? '--',
   },
   {
     header: 'Customer Name',
-    accessorKey: 'customerDetails.org_name',
+    accessorFn: row => row?.customerDetails?.org_name ?? '--',
   },
   {
     header: 'Tranche',
-    accessorKey: 'fleetRequestDetails.tranche',
+    accessorFn: row => row?.fleetRequestDetails?.tranche ?? '--',
   },
   {
     header: 'Lender Name',
-    accessorKey: 'fleetRequestDetails.fleetRequestsLenderConvenants.lender_name',
+    accessorFn: row => row?.fleetRequestDetails?.fleetRequestsLenderConvenants?.lender_name ?? '--',
   },
   {
     header: 'Fleet Request ID',
-    accessorKey: 'fleetRequestDetails.request_id',
+    accessorFn: row => row?.fleetRequestDetails?.request_id ?? '--',
   },
   {
     header: 'Lessor Name',
-    accessorKey: 'fleetRequestDetails.fleetRequestsLenderConvenants.lessor_name',
+    accessorFn: row => row?.fleetRequestDetails?.fleetRequestsLenderConvenants?.lessor_name ?? '--',
   },
 ];
 

@@ -47,12 +47,10 @@ const VerifyOtp = () => {
       });
 
       if ('data' in response && response.data?.data) {
-        // Store the tokens
-        const { accessToken, refreshToken } = response.data.data;
-        // TODO: Store tokens in secure storage
-        console.log('Tokens received:', { accessToken, refreshToken });
+        console.log(response.data.data);
+        const user = response.data.data;
 
-        // Redirect to dashboard or home page
+        localStorage.setItem('user', JSON.stringify(user));
         router.push('/');
       }
     } catch (error) {
