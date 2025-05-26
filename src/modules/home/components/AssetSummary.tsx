@@ -3,11 +3,12 @@ import { useFetchAssetSummaryDashboardParametersQuery } from '@/store/api/v1/mod
 import { FaMotorcycle } from 'react-icons/fa';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { PiCarProfileFill } from 'react-icons/pi';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const CategoryIconMap: Record<string, React.ReactNode> = {
-  '2': <FaMotorcycle />,
-  '3': <TbTruckDelivery />,
-  '4': <PiCarProfileFill />,
+  '2': <FaMotorcycle className="h-5 w-5" />,
+  '3': <TbTruckDelivery className="h-5 w-5" />,
+  '4': <PiCarProfileFill className="h-5 w-5" />,
 };
 
 const AssetSummary = () => {
@@ -16,41 +17,45 @@ const AssetSummary = () => {
   const totalFleetSize = assetSummaryData?.result?.data?.totalFleetSize;
 
   return (
-    <div className="bg-white py-4 rounded-md border flex flex-col gap-3">
-      <div className="flex justify-between items-center px-4">
-        <div className="text-lg font-semibold">Asset Summary</div>
-        <div className="text-lg font-semibold">Total Fleet Size: {totalFleetSize}</div>
-      </div>
-      <table className="w-full">
-        <thead>
-          <tr className="bg-gray-200 h-12">
-            <th className="text-center text-sm">Category</th>
-            <th className="text-center text-sm">Active</th>
-            <th className="text-center text-sm">Inactive</th>
-            <th className="text-center text-sm">Due for Service</th>
-            <th className="text-center text-sm">Being Serviced</th>
-            <th className="text-center text-sm">Utilization</th>
-          </tr>
-        </thead>
-        <tbody>
-          {assetSummary?.map(item => (
-            <tr key={item.category} className=" hover:bg-gray-50">
-              <td className="h-12 text-sm text-center">
-                <div className="flex items-center justify-center">
-                  {item.category + 'W'}&nbsp;
-                  {CategoryIconMap[item.category]}
-                </div>
-              </td>
-              <td className="h-12 text-sm text-center">{item.active || 0}</td>
-              <td className="h-12 text-sm text-center">{item.inactive || 0}</td>
-              <td className="h-12 text-sm text-center">{item.dueForService || 0}</td>
-              <td className="h-12 text-sm text-center">{item.beingServiced || 0}</td>
-              <td className="h-12 text-sm text-center">{item.utilization || 0}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle>Asset Summary</CardTitle>
+        <div className="text-sm font-medium">Total Fleet Size: {totalFleetSize}</div>
+      </CardHeader>
+      <CardContent>
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-muted">
+                <th className="h-10 px-4 text-left font-medium">Category</th>
+                <th className="h-10 px-4 text-center font-medium">Active</th>
+                <th className="h-10 px-4 text-center font-medium">Inactive</th>
+                <th className="h-10 px-4 text-center font-medium">Due for Service</th>
+                <th className="h-10 px-4 text-center font-medium">Being Serviced</th>
+                <th className="h-10 px-4 text-center font-medium">Utilization</th>
+              </tr>
+            </thead>
+            <tbody>
+              {assetSummary?.map(item => (
+                <tr key={item.category} className="border-b transition-colors hover:bg-muted/50">
+                  <td className="h-12 px-4">
+                    <div className="flex items-center gap-2">
+                      {CategoryIconMap[item.category]}
+                      <span>{item.category}W</span>
+                    </div>
+                  </td>
+                  <td className="h-12 px-4 text-center">{item.active || 0}</td>
+                  <td className="h-12 px-4 text-center">{item.inactive || 0}</td>
+                  <td className="h-12 px-4 text-center">{item.dueForService || 0}</td>
+                  <td className="h-12 px-4 text-center">{item.beingServiced || 0}</td>
+                  <td className="h-12 px-4 text-center">{item.utilization || 0}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

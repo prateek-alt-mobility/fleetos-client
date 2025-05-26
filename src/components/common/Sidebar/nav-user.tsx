@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronsUpDown, LogOut } from 'lucide-react';
+import { ChevronsUpDown, LogOut, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
@@ -42,6 +43,7 @@ type User = {
 export function NavUser() {
   const [user, setUser] = useState<User | null>(null);
   const { isMobile } = useSidebar();
+  const { theme, setTheme } = useTheme();
 
   const [logout] = useLogoutMutation();
   const router = useRouter();
@@ -106,30 +108,19 @@ export function NavUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator /> */}
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            >
+              {theme === 'dark' ? (
+                <Sun className="mr-2 h-4 w-4" />
+              ) : (
+                <Moon className="mr-2 h-4 w-4" />
+              )}
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
-              <LogOut />
+              <LogOut className="mr-2 h-4 w-4" />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

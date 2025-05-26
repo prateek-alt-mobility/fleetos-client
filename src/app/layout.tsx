@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { useRouter } from 'next/navigation';
 import { useLayoutEffect } from 'react';
 import RouteTransition from '@/components/RouteTransition';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -40,12 +41,14 @@ const RootLayout = ({
   }, [router]);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Provider store={store}>
-          <RouteTransition>{children}</RouteTransition>
-        </Provider>
-        <Toaster />
+        <ThemeProvider>
+          <Provider store={store}>
+            <RouteTransition>{children}</RouteTransition>
+          </Provider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
