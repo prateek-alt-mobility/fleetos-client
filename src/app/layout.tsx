@@ -5,6 +5,8 @@ import './globals.css';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
 import { Toaster } from '@/components/ui/toaster';
+import { useRouter } from 'next/navigation';
+import { useLayoutEffect } from 'react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -26,6 +28,15 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const router = useRouter();
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('user');
+      if (!user) {
+        router.push('/login');
+      }
+    }
+  }, []);
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>

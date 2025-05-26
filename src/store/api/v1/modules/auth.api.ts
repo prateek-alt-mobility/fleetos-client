@@ -3,9 +3,18 @@ import { v1Api } from '..';
 enum AUTH_API_ENDPOINTS {
   CHECK_LOGIN = '/auth.checklogin',
   FETCH_USER_PERMISSIONS = '/rolePerms.getUserPerms',
+  LOGOUT = '/auth.logoutUser',
 }
 
 type CheckLoginResponse = {
+  result: {
+    data: {
+      message: string;
+    };
+  };
+};
+
+type LogoutResponse = {
   result: {
     data: {
       message: string;
@@ -46,7 +55,13 @@ export const authApi = v1Api.injectEndpoints({
     fetchUserPermissions: builder.query<FetchUserPermissionsResponse, void>({
       query: () => AUTH_API_ENDPOINTS.FETCH_USER_PERMISSIONS,
     }),
+    logout: builder.mutation<LogoutResponse, void>({
+      query: () => ({
+        url: AUTH_API_ENDPOINTS.LOGOUT,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
-export const { useCheckLoginQuery, useFetchUserPermissionsQuery } = authApi;
+export const { useCheckLoginQuery, useFetchUserPermissionsQuery, useLogoutMutation } = authApi;
