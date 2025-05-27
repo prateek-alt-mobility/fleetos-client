@@ -1,7 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,6 +8,8 @@ import { z } from 'zod';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useVerifyOtpMutation } from '@/store/api/nestService/modules/auth.api';
 import Image from 'next/image';
+import InputOTP from '@/components/common/InputOtp';
+import { useToast } from '@/hooks/use-toast';
 
 const verifyOtpSchema = z.object({
   otp: z.string().length(6, 'OTP must be 6 digits'),
@@ -20,9 +21,11 @@ const VerifyOtp = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
+  const { toast } = useToast();
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<VerifyOtpFormData>({
@@ -36,7 +39,12 @@ const VerifyOtp = () => {
       const phoneNo = searchParams.get('phoneNo');
 
       if (!token || !email || !phoneNo) {
-        throw new Error('Missing required parameters');
+        toast({
+          variant: 'destructive',
+          title: 'Missing Information',
+          description: 'Required verification parameters are missing.',
+        });
+        return;
       }
 
       const response = await verifyOtp({
@@ -51,10 +59,29 @@ const VerifyOtp = () => {
         const user = response.data.data;
 
         localStorage.setItem('user', JSON.stringify(user));
+        toast({
+          title: 'Success!',
+          variant: 'success',
+          description: 'Logged in successfully!',
+          duration: 2000,
+        });
         router.push('/');
+      } else if ('error' in response) {
+        toast({
+          variant: 'destructive',
+          title: 'Verification Failed',
+          description: 'Invalid OTP. Please try again.',
+          duration: 2000,
+        });
       }
     } catch (error) {
       console.error('OTP verification failed:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to verify OTP. Please try again.',
+        duration: 2000,
+      });
     }
   };
 
@@ -74,13 +101,12 @@ const VerifyOtp = () => {
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="otp">OTP</Label>
-                    <Input
-                      id="otp"
-                      type="text"
-                      placeholder="Enter 6-digit OTP"
-                      maxLength={6}
+                    <InputOTP
                       {...register('otp')}
                       disabled={isLoading}
+                      onChange={value => {
+                        setValue('otp', value);
+                      }}
                     />
                     {errors.otp && <p className="text-sm text-red-500">{errors.otp.message}</p>}
                   </div>
