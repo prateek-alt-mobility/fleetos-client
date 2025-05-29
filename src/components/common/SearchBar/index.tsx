@@ -35,13 +35,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
   }, [value]);
 
   return (
-    <div className={clsx('relative w-96', className)}>
+    <div className={clsx('relative', className)}>
       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        <Search className="w-5 h-5 text-gray-400" />
+        <Search className="w-5 h-5 text-gray-400 dark:text-gray-500" />
       </div>
       <input
         type="text"
-        className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
+        className="block w-full p-2 pl-10 text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400"
         placeholder={placeholder}
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}

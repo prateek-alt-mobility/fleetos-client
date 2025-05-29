@@ -116,7 +116,10 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
                   return (
-                    <TableHead key={header.id} className="first:rounded-tl-md last:rounded-tr-md">
+                    <TableHead
+                      key={header.id}
+                      className="text-xs first:rounded-tl-md last:rounded-tr-md"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}
@@ -135,7 +138,7 @@ export function DataTable<TData, TValue>({
                   data-state={enableRowSelection && row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-xs">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}

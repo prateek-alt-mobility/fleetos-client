@@ -38,7 +38,7 @@ export interface Service {
   serviceStatus: string | null;
   serviceGarage: string | null;
   vehicleStockMst: VehicleStockMst;
-  serviceRequestTags: any[];
+  serviceRequestTags: string[];
   reportSignedUrl: string | null;
 }
 
